@@ -3,7 +3,7 @@ package model;
 import java.time.LocalDateTime;
 
 public class Users {
-	private int udrtId;
+	private int userId;
 	private String account;
 	private String password;
 	private String name;
@@ -22,10 +22,10 @@ public class Users {
 		this.createAt = createAt;
 	}
 	public int getUdrtId() {
-		return udrtId;
+		return userId;
 	}
 	public void setUdrtId(int udrtId) {
-		this.udrtId = udrtId;
+		this.userId = udrtId;
 	}
 	public String getAccount() {
 		return account;
