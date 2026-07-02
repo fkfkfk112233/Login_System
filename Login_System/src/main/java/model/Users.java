@@ -1,0 +1,62 @@
+package model;
+
+import java.time.LocalDateTime;
+
+public class Users {
+	private int udrtId;
+	private String account;
+	private String password;
+	private String name;
+	private int roleId;
+	private LocalDateTime createAt;
+	public Users() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Users(String account, String password, String name, int roleId, LocalDateTime createAt) {
+		super();
+		this.account = account;
+		this.password = password;
+		this.name = name;
+		this.roleId = roleId;
+		this.createAt = createAt;
+	}
+	public int getUdrtId() {
+		return udrtId;
+	}
+	public void setUdrtId(int udrtId) {
+		this.udrtId = udrtId;
+	}
+	public String getAccount() {
+		return account;
+	}
+	public void setAccount(String account) {
+		this.account = account;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
+	public LocalDateTime getCreateAt() {
+		return createAt;
+	}
+	public void setCreateAt(LocalDateTime createAt) {
+		this.createAt = createAt;
+	}
+	
+	
+}
