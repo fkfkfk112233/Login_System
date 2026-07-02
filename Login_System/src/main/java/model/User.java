@@ -2,18 +2,18 @@ package model;
 
 import java.time.LocalDateTime;
 
-public class Users {
+public class User {
 	private int userId;
 	private String account;
 	private String password;
 	private String name;
 	private int roleId;
 	private LocalDateTime createAt;
-	public Users() {
+	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Users(String account, String password, String name, int roleId, LocalDateTime createAt) {
+	public User(String account, String password, String name, int roleId, LocalDateTime createAt) {
 		super();
 		this.account = account;
 		this.password = password;
