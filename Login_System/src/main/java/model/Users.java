@@ -21,10 +21,10 @@ public class Users {
 		this.roleId = roleId;
 		this.createAt = createAt;
 	}
-	public int getUdrtId() {
+	public int getUerId() {
 		return userId;
 	}
-	public void setUdrtId(int udrtId) {
+	public void setUserId(int udrtId) {
 		this.userId = udrtId;
 	}
 	public String getAccount() {
