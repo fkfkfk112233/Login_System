@@ -14,12 +14,14 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class HomeFrame extends JFrame {
+public class HomeFrame extends BaseFrame {
 
 	/***************************Attribute***************************/
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	
+	User user = getCurrentUser();
 
 	/***************************Main***************************/
 	
@@ -46,7 +48,7 @@ public class HomeFrame extends JFrame {
 	 */
 	public HomeFrame() {
 		
-		if(!Session.isLogin())
+		if(!isLogin())
 		{
 			new LoginFrame().setVisible(true);
 			dispose();
@@ -69,14 +71,12 @@ public class HomeFrame extends JFrame {
 		JButton btnLogout = new JButton("登出");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				logout();
+				tologin();
 			}
 		});
 		btnLogout.setBounds(165, 130, 87, 23);
 		contentPane.add(btnLogout);
-		
-		User user = Session.getCurrentUser();
-		
+			
 		if (user != null) {
 		    lblWelcome.setText("歡迎：" + user.getName());
 		}
@@ -85,11 +85,10 @@ public class HomeFrame extends JFrame {
 	
 	/***************************Method****************************/
 
-	private void logout()
+	private void tologin()
 	{
-		Session.logout();
+		logout();
 		
-		new LoginFrame().setVisible(true);
-		dispose();
+		openFrame(new LoginFrame());
 	}
 }
