@@ -128,6 +128,9 @@ public class LoginFrame extends JFrame {
 
 	        msg.setForeground(Color.BLUE);
 	        msg.setText("歡迎 " + user.getName());
+	        
+	        new HomeFrame().setVisible(true);
+	        dispose();
 
 	    }else {
 
