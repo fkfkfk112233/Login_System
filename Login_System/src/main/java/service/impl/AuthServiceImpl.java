@@ -8,12 +8,12 @@ import util.Session;
 
 public class AuthServiceImpl implements AuthService{
 	
-	private UserDao userdao = new UserDaoImpl();
+	private UserDao userDao = new UserDaoImpl();
 
 	@Override
 	public User login(String account, String password) {
 		
-		User user = userdao.selectByAccount(account);
+		User user = userDao.selectByAccount(account);
 		
 		if(user == null)
 		{
@@ -28,6 +28,19 @@ public class AuthServiceImpl implements AuthService{
 		Session.login(user);
 		
 		return user;
+	}
+
+	@Override
+	public boolean register(User user) {
+	    // 1. 帳號是否存在
+	    if (userDao.selectByAccount(user.getAccount()) != null) {
+	        return false;
+	    }
+
+	    // 2. 新增
+	    userDao.insert(user);
+
+	    return true;
 	}
 
 }
