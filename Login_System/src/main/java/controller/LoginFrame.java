@@ -72,6 +72,16 @@ public class LoginFrame extends BaseFrame {
 		title.setBounds(120, 10, 90, 50);
 		contentPane.add(title);
 		
+		lbAcc = new JLabel("帳號：");
+		lbAcc.setFont(new Font("新細明體", Font.BOLD, 15));
+		lbAcc.setBounds(34, 69, 46, 30);
+		contentPane.add(lbAcc);
+		
+		lbPwd = new JLabel("密碼：");
+		lbPwd.setFont(new Font("新細明體", Font.BOLD, 15));
+		lbPwd.setBounds(34, 112, 46, 30);
+		contentPane.add(lbPwd);
+		
 		msg = new JLabel("");
 		msg.setFont(new Font("新細明體", Font.BOLD, 12));
 		msg.setBounds(34, 230, 246, 30);
@@ -83,7 +93,6 @@ public class LoginFrame extends BaseFrame {
 		txtAccount.setBounds(90, 70, 190, 30);
 		contentPane.add(txtAccount);
 		txtAccount.setColumns(10);
-		
 		
 		txtPassword = new JPasswordField("");
 		txtPassword.setBounds(90, 112, 190, 30);
@@ -99,15 +108,6 @@ public class LoginFrame extends BaseFrame {
 		btnLogin.setBounds(193, 170, 87, 23);
 		contentPane.add(btnLogin);
 		
-		lbAcc = new JLabel("帳號：");
-		lbAcc.setFont(new Font("新細明體", Font.BOLD, 15));
-		lbAcc.setBounds(34, 69, 46, 30);
-		contentPane.add(lbAcc);
-		
-		lbPwd = new JLabel("密碼：");
-		lbPwd.setFont(new Font("新細明體", Font.BOLD, 15));
-		lbPwd.setBounds(34, 112, 46, 30);
-		contentPane.add(lbPwd);
 	}
 	/***************************Method****************************/
 
