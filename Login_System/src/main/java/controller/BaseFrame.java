@@ -152,41 +152,55 @@ public class BaseFrame extends JFrame {
      ************************************************/
 
     /**
+     * 每個畫面的提示 Label
+     */
+    protected JLabel messageLabel;
+	
+    
+    /**
      * 顯示成功訊息
      */
-    protected void showSuccess(JLabel label, String message) {
-
-        label.setForeground(Color.GREEN);
-        label.setText(message);
+    protected void showSuccess(String text) {
+    	
+    	if(messageLabel ==null) return;
+    	
+    		messageLabel.setForeground(Color.GREEN);
+    		messageLabel.setText(text);
 
     }
 
     /**
      * 顯示錯誤訊息
      */
-    protected void showError(JLabel label, String message) {
+    protected void showError(String text) {
+    	
+    	if(messageLabel ==null) return;
 
-        label.setForeground(Color.RED);
-        label.setText(message);
+    	messageLabel.setForeground(Color.RED);
+    	messageLabel.setText(text);
 
     }
 
     /**
      * 顯示一般訊息
      */
-    protected void showInfo(JLabel label, String message) {
+    protected void showInfo(String text) {
+    	
+    	if(messageLabel ==null) return;
 
-        label.setForeground(Color.BLUE);
-        label.setText(message);
+    	messageLabel.setForeground(Color.BLUE);
+    	messageLabel.setText(text);
 
     }
 
     /**
      * 清除訊息
      */
-    protected void clearMessage(JLabel label) {
+    protected void clearMessage() {
+    	
+    	 if (messageLabel == null) return;
 
-        label.setText("");
+    	 messageLabel.setText("");
 
     }
 }
