@@ -8,7 +8,7 @@ public class User {
 	private String password;
 	private String name;
 	private int roleId;
-	private LocalDateTime createAt;
+	private LocalDateTime create_time;
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -19,9 +19,9 @@ public class User {
 		this.password = password;
 		this.name = name;
 		this.roleId = roleId;
-		this.createAt = createAt;
+		this.create_time = createAt;
 	}
-	public int getUerId() {
+	public int getUserId() {
 		return userId;
 	}
 	public void setUserId(int udrtId) {
@@ -52,10 +52,10 @@ public class User {
 		this.roleId = roleId;
 	}
 	public LocalDateTime getCreateAt() {
-		return createAt;
+		return create_time;
 	}
 	public void setCreateAt(LocalDateTime createAt) {
-		this.createAt = createAt;
+		this.create_time = createAt;
 	}
 	
 	
