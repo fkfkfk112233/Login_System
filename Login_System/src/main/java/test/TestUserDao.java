@@ -9,6 +9,7 @@ import model.User;
 public class TestUserDao {
 
 	public static void main(String[] args) {
+		
 		UserDao dao = new UserDaoImpl();
 
 		User user = dao.selectByAccount("admin");
