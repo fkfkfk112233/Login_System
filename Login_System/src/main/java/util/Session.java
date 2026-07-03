@@ -29,5 +29,14 @@ public class Session {
 	{
 		return currentUser != null;
 	}
+
+	public static User getCurrentUser() {
+		return currentUser;
+	}
+
+	public static void setCurrentUser(User currentUser) {
+		Session.currentUser = currentUser;
+	}
+	
 	
 }
