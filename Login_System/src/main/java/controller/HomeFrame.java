@@ -48,10 +48,8 @@ public class HomeFrame extends BaseFrame {
 	 */
 	public HomeFrame() {
 		
-		if(!isLogin())
+		if(!requireLogin())
 		{
-			new LoginFrame().setVisible(true);
-			dispose();
 			return;
 		}
 		
