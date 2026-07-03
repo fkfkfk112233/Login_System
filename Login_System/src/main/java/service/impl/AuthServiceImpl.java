@@ -4,6 +4,7 @@ import dao.UserDao;
 import dao.impl.UserDaoImpl;
 import model.User;
 import service.AuthService;
+import util.Session;
 
 public class AuthServiceImpl implements AuthService{
 	
@@ -23,6 +24,8 @@ public class AuthServiceImpl implements AuthService{
 		{
 			return null;
 		}
+		
+		Session.login(user);
 		
 		return user;
 	}
