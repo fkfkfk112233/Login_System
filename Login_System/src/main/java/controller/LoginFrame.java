@@ -3,6 +3,8 @@ package controller;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,15 +12,13 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
 
 import model.User;
 import service.AuthService;
 import service.impl.AuthServiceImpl;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class LoginFrame extends JFrame {
+public class LoginFrame extends BaseFrame {
 
 	/***************************Attribute***************************/
 	
@@ -126,16 +126,15 @@ public class LoginFrame extends JFrame {
 
 	    if(user != null) {
 
-	        msg.setForeground(Color.BLUE);
-	        msg.setText("歡迎 " + user.getName());
+	    	showSuccess(msg, "歡迎 " + user.getName());
 	        
-	        new HomeFrame().setVisible(true);
-	        dispose();
+	    	openFrame(new HomeFrame());
+	        
+	        clearMessage(msg);
 
 	    }else {
 
-	        msg.setForeground(Color.RED);
-	        msg.setText("帳號或密碼錯誤");
+	    	showError(msg, "帳號或密碼錯誤");
 
 	    }
 
