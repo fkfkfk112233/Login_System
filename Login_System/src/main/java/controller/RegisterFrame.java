@@ -6,14 +6,18 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
+import model.User;
 import service.AuthService;
 import service.impl.AuthServiceImpl;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class RegisterFrame extends JFrame {
+public class RegisterFrame extends BaseFrame {
 	
 	/***************************Attribute***************************/
 
@@ -26,13 +30,17 @@ public class RegisterFrame extends JFrame {
 	private AuthService authService = new AuthServiceImpl();
 	private JLabel lbName;
 	private JTextField textName;
-	private JTextField textAccount;
-	private JTextField textPassword;
+	private JPasswordField textAccount;
+	private JPasswordField textPassword;
 	private JLabel lbPwd_1;
 	private JTextField txtConfirmPassword;
 	private JButton btnRegister;
 	private JButton btnNewButton;
 	private JLabel lblNewLabel;
+	private JLabel msgName;
+	private JLabel msgAccount;
+	private JLabel msgPassword;
+	private JLabel msgPassword_2;
 	
 	/***************************Main***************************/
 
@@ -106,6 +114,11 @@ public class RegisterFrame extends JFrame {
 		lbPwd_1.setBounds(34, 200, 90, 30);
 		contentPane.add(lbPwd_1);
 		
+		lblNewLabel = new JLabel("已有帳號?");
+		lblNewLabel.setFont(new Font("新細明體", Font.BOLD, 12));
+		lblNewLabel.setBounds(55, 296, 60, 20);
+		contentPane.add(lblNewLabel);
+		
 		txtConfirmPassword = new JTextField();
 		txtConfirmPassword.setColumns(10);
 		txtConfirmPassword.setBounds(116, 205, 96, 21);
@@ -116,14 +129,70 @@ public class RegisterFrame extends JFrame {
 		contentPane.add(btnRegister);
 		
 		btnNewButton = new JButton("返回登入");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				backLogin();
+			}
+
+		});
 		btnNewButton.setBounds(125, 295, 87, 23);
 		contentPane.add(btnNewButton);
 		
-		lblNewLabel = new JLabel("已有帳號?");
-		lblNewLabel.setFont(new Font("新細明體", Font.BOLD, 12));
-		lblNewLabel.setBounds(55, 296, 60, 20);
-		contentPane.add(lblNewLabel);
-
+		
+		msgName = new JLabel("");
+		msgName.setBounds(222, 88, 80, 21);
+		contentPane.add(msgName);
+		
+		msgAccount = new JLabel("");
+		msgAccount.setBounds(222, 128, 80, 21);
+		contentPane.add(msgAccount);
+		
+		msgPassword = new JLabel("");
+		msgPassword.setBounds(222, 168, 80, 21);
+		contentPane.add(msgPassword);
+		
+		msgName_3 = new JLabel("");
+		msgName_3.setBounds(222, 208, 80, 21);
+		contentPane.add(msgName_3);
 	}
+	/***************************Method****************************/
+		
+		private void backLogin() {
+		
+			openFrame(new LoginFrame());
+		}
+	
+		private void register()
+		{
+			clearMessage();
+
+			if(!validateInput())
+			{
+				return;
+			}
+			
+			User user = new User();
+			
+			user.setName(textName.getText().trim());
+			user.setAccount(textAccount.getText().trim());
+			user.setPassword(String.valueOf(textPassword.getPassword()));
+			
+		    // 一般會員
+		    user.setRoleId(2);
+
+		    boolean success = authService.register(user);
+
+		    if (success) {
+
+		        showSuccess("註冊成功");
+
+		    } else {
+
+		        showError("帳號已存在");
+
+		    }
+		}
+	
+	
 
 }
