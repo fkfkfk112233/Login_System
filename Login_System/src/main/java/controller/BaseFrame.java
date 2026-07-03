@@ -119,6 +119,42 @@ public class BaseFrame extends JFrame {
      ************************************************/
     
     /**
+     * 需要登入才能進入此畫面
+     */
+    protected boolean requireLogin() {
+
+        if (!isLogin()) {
+
+            new LoginFrame().setVisible(true);
+            
+            dispose();
+            
+            return false;
+
+        }
+        
+        return true;
+
+    }
+    
+    /**
+     * 需要權限
+     */
+    protected boolean requireAdmin() {
+
+        if(!isAdmin()) {
+
+            showError("沒有權限");
+
+            return false;
+
+        }
+
+        return true;
+
+    }
+    
+    /**
      * 開啟新畫面並關閉目前畫面
      */
     protected void openFrame(JFrame frame) {
