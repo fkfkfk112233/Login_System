@@ -12,6 +12,9 @@ import javax.swing.border.EmptyBorder;
 import model.User;
 import service.AuthService;
 import service.impl.AuthServiceImpl;
+import validator.UserValidator;
+import model.ValidationResult;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -29,18 +32,20 @@ public class RegisterFrame extends BaseFrame {
 	
 	private AuthService authService = new AuthServiceImpl();
 	private JLabel lbName;
-	private JTextField textName;
-	private JPasswordField textAccount;
-	private JPasswordField textPassword;
+	private JTextField txtName;
+	private JTextField  txtAccount;
+	private JPasswordField txtPassword;
 	private JLabel lbPwd_1;
-	private JTextField txtConfirmPassword;
+	private JPasswordField txtConfirmPassword;
 	private JButton btnRegister;
-	private JButton btnNewButton;
+	private JButton btnBack;
 	private JLabel lblNewLabel;
 	private JLabel msgName;
 	private JLabel msgAccount;
 	private JLabel msgPassword;
-	private JLabel msgPassword_2;
+	private JLabel msgConfirmPassword;
+	
+	private UserValidator validator = new UserValidator();
 	
 	/***************************Main***************************/
 
@@ -94,20 +99,20 @@ public class RegisterFrame extends BaseFrame {
 		lbName.setBounds(34, 80, 46, 30);
 		contentPane.add(lbName);
 		
-		textName = new JTextField();
-		textName.setBounds(90, 85, 122, 21);
-		contentPane.add(textName);
-		textName.setColumns(10);
+		txtName = new JTextField();
+		txtName.setBounds(90, 85, 122, 21);
+		contentPane.add(txtName);
+		txtName.setColumns(10);
 		
-		textAccount = new JTextField();
-		textAccount.setBounds(90, 125, 122, 21);
-		contentPane.add(textAccount);
-		textAccount.setColumns(10);
+		txtAccount = new JTextField();
+		txtAccount.setBounds(90, 125, 122, 21);
+		contentPane.add(txtAccount);
+		txtAccount.setColumns(10);
 		
-		textPassword = new JTextField();
-		textPassword.setBounds(90, 165, 122, 21);
-		contentPane.add(textPassword);
-		textPassword.setColumns(10);
+		txtPassword = new JPasswordField();
+		txtPassword.setBounds(90, 165, 122, 21);
+		contentPane.add(txtPassword);
+		txtPassword.setColumns(10);
 		
 		lbPwd_1 = new JLabel("確認密碼：");
 		lbPwd_1.setFont(new Font("新細明體", Font.BOLD, 15));
@@ -119,42 +124,51 @@ public class RegisterFrame extends BaseFrame {
 		lblNewLabel.setBounds(55, 296, 60, 20);
 		contentPane.add(lblNewLabel);
 		
-		txtConfirmPassword = new JTextField();
+		txtConfirmPassword = new JPasswordField();
 		txtConfirmPassword.setColumns(10);
 		txtConfirmPassword.setBounds(116, 205, 96, 21);
 		contentPane.add(txtConfirmPassword);
 		
 		btnRegister = new JButton("註冊");
+		btnRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				register();
+			}
+
+		});
 		btnRegister.setBounds(125, 250, 87, 23);
 		contentPane.add(btnRegister);
 		
-		btnNewButton = new JButton("返回登入");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnBack = new JButton("返回登入");
+		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				backLogin();
 			}
 
 		});
-		btnNewButton.setBounds(125, 295, 87, 23);
-		contentPane.add(btnNewButton);
+		btnBack.setBounds(125, 295, 87, 23);
+		contentPane.add(btnBack);
 		
 		
 		msgName = new JLabel("");
-		msgName.setBounds(222, 88, 80, 21);
+		msgName.setBounds(222, 88, 100, 21);
 		contentPane.add(msgName);
 		
 		msgAccount = new JLabel("");
-		msgAccount.setBounds(222, 128, 80, 21);
+		msgAccount.setBounds(222, 128, 100, 21);
 		contentPane.add(msgAccount);
 		
 		msgPassword = new JLabel("");
-		msgPassword.setBounds(222, 168, 80, 21);
+		msgPassword.setBounds(222, 168, 100, 21);
 		contentPane.add(msgPassword);
 		
-		msgName_3 = new JLabel("");
-		msgName_3.setBounds(222, 208, 80, 21);
-		contentPane.add(msgName_3);
+		msgConfirmPassword = new JLabel("");
+		msgConfirmPassword.setBounds(222, 208, 100, 21);
+		contentPane.add(msgConfirmPassword);
+		
+		registerListener();
 	}
+
 	/***************************Method****************************/
 		
 		private void backLogin() {
@@ -162,37 +176,136 @@ public class RegisterFrame extends BaseFrame {
 			openFrame(new LoginFrame());
 		}
 	
-		private void register()
-		{
-			clearMessage();
+		private void registerListener() {
+		    txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+		        @Override
+		        public void keyReleased(java.awt.event.KeyEvent e) {
+		            validateName();
+		        }
+		    });
 
-			if(!validateInput())
-			{
-				return;
-			}
+		    txtAccount.addKeyListener(new java.awt.event.KeyAdapter() {
+		        @Override
+		        public void keyReleased(java.awt.event.KeyEvent e) {
+		            validateAccount();
+		        }
+		    });
+
+		    txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+		        @Override
+		        public void keyReleased(java.awt.event.KeyEvent e) {
+
+		            validatePassword();
+		            validateConfirmPassword();
+
+		        }
+		    });
+
+		    txtConfirmPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+		        @Override
+		        public void keyReleased(java.awt.event.KeyEvent e) {
+
+		            validateConfirmPassword();
+
+		        }
+		    });
 			
-			User user = new User();
-			
-			user.setName(textName.getText().trim());
-			user.setAccount(textAccount.getText().trim());
-			user.setPassword(String.valueOf(textPassword.getPassword()));
-			
-		    // 一般會員
+		}
+
+		private boolean validateName() {
+
+		    ValidationResult result =
+		            validator.validateName(
+		                    txtName.getText().trim());
+
+		    msgName.setText(result.getMessage());
+
+		    return result.isSuccess();
+
+		}
+		
+		private boolean validateAccount() {
+
+		    ValidationResult result =
+		            validator.validateAccount(
+		                    txtAccount.getText().trim());
+
+		    msgAccount.setText(result.getMessage());
+
+		    return result.isSuccess();
+
+		}
+		
+		private boolean validatePassword() {
+
+		    ValidationResult result =
+		            validator.validatePassword(
+		                    String.valueOf(
+		                            txtPassword.getPassword()));
+
+		    msgPassword.setText(result.getMessage());
+
+		    return result.isSuccess();
+
+		}
+		
+		private boolean validateConfirmPassword() {
+
+		    ValidationResult result =
+		            validator.validateConfirmPassword(
+
+		                    String.valueOf(
+		                            txtPassword.getPassword()),
+
+		                    String.valueOf(
+		                            txtConfirmPassword.getPassword())
+
+		            );
+
+		    msgConfirmPassword.setText(result.getMessage());
+
+		    return result.isSuccess();
+
+		}
+		
+		private void register() {
+		    boolean ok = true;
+
+		    ok &= validateName();
+		    ok &= validateAccount();
+		    ok &= validatePassword();
+		    ok &= validateConfirmPassword();
+
+		    if (!ok) {
+		        return;
+		    }
+
+		    User user = new User();
+
+		    user.setName(txtName.getText().trim());
+
+		    user.setAccount(txtAccount.getText().trim());
+
+		    user.setPassword(
+		            String.valueOf(
+		                    txtPassword.getPassword()));
+
 		    user.setRoleId(2);
 
 		    boolean success = authService.register(user);
 
 		    if (success) {
 
-		        showSuccess("註冊成功");
+		        openFrame(new LoginFrame());
 
 		    } else {
 
-		        showError("帳號已存在");
+		        msgAccount.setText("帳號已存在");
 
 		    }
+			
 		}
-	
+
 	
 
 }
