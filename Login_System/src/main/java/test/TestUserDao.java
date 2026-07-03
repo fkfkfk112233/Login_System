@@ -29,8 +29,6 @@ public class TestUserDao {
         }
         
         System.out.println("================================");
-        
-        //UserDao dao = new UserDaoImpl();
 
         List<User> list = dao.selectAll();
 
