@@ -126,15 +126,15 @@ public class LoginFrame extends BaseFrame {
 
 	    if(user != null) {
 
-	    	showSuccess(msg, "歡迎 " + user.getName());
+	    	showSuccess("歡迎 " + user.getName());
 	        
 	    	openFrame(new HomeFrame());
 	        
-	        clearMessage(msg);
+	        clearMessage();
 
 	    }else {
 
-	    	showError(msg, "帳號或密碼錯誤");
+	    	showError("帳號或密碼錯誤");
 
 	    }
 
