@@ -28,72 +28,57 @@ public class UserValidator {
             "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&]).+$";
     
     
+    //========================
+    // Public
+    //========================
+    
     //驗證姓名
     public ValidationResult validateName(String name) {
 
-        ValidationResult result;
+        return validate(
 
-        result = checkRequired(name, "請輸入姓名");
-        if (!result.isSuccess()) return result;
+                checkRequired(name, "請輸入姓名"),
 
-//        result = checkLength(name, 2, 20, "姓名");
-//        if (!result.isSuccess()) return result;
+                checkRegex(
+                        name,
+                        NAME_REGEX,
+                        "姓名格式錯誤")
 
-        result = checkRegex(
-                name,
-                NAME_REGEX,
-                "姓名只能輸入中文、英文");
-
-        if (!result.isSuccess()) return result;
-
-        return ValidationResult.success();
+        );
 
     }
     
     //驗證帳號
     public ValidationResult validateAccount(String account) {
 
-        ValidationResult result;
+        return validate(
 
-        result = checkRequired(account, "請輸入帳號");
-        if (!result.isSuccess()) return result;
+                checkRequired(account, "請輸入帳號"),
 
-//        result = checkLength(account, 4, 20, "帳號");
-//        if (!result.isSuccess()) return result;
+                checkRegex(
+                        account,
+                        ACCOUNT_REGEX,
+                        "帳號格式錯誤"),
 
-        result = checkRegex(
-                account,
-                ACCOUNT_REGEX,
-                "帳號格式錯誤");
+                checkAccountDuplicate(account)
 
-        if (!result.isSuccess()) return result;
-
-        result = checkAccountDuplicate(account);
-        if (!result.isSuccess()) return result;
-
-        return ValidationResult.success();
+        );
 
     }
     
     //驗證密碼
     public ValidationResult validatePassword(String password) {
 
-        ValidationResult result;
+        return validate(
 
-        result = checkRequired(password, "請輸入密碼");
-        if (!result.isSuccess()) return result;
+                checkRequired(password, "請輸入密碼"),
 
-//        result = checkLength(password, 8, 20, "密碼");
-//        if (!result.isSuccess()) return result;
+                checkRegex(
+                        password,
+                        PASSWORD_REGEX,
+                        "密碼需包含英文、數字及特殊符號")
 
-        result = checkRegex(
-                password,
-                PASSWORD_REGEX,
-                "密碼需包含英文、數字及特殊符號");
-
-        if (!result.isSuccess()) return result;
-
-        return ValidationResult.success();
+        );
 
     }
     
@@ -102,11 +87,33 @@ public class UserValidator {
             String password,
             String confirmPassword) {
 
-        return checkEquals(
-                password,
-                confirmPassword,
-                "密碼不一致");
+        return validate(
 
+                checkEquals(
+                        password,
+                        confirmPassword,
+                        "密碼不一致")
+
+        );
+
+    }
+    
+    //========================
+    // Private
+    //========================
+    
+    
+    private ValidationResult validate(ValidationResult... results) {
+
+        for (ValidationResult result : results) {
+
+            if (!result.isSuccess()) {
+                return result;
+            }
+
+        }
+
+        return ValidationResult.success();
     }
     
     //檢查是否為空
