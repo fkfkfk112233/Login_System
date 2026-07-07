@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import model.User;
 import service.AuthService;
 import service.impl.AuthServiceImpl;
+import ui.frame.BaseFrame;
 
 public class LoginFrame extends BaseFrame {
 
