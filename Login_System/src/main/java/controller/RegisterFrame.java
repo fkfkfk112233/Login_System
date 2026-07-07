@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import model.User;
 import service.AuthService;
 import service.impl.AuthServiceImpl;
+import ui.frame.BaseFrame;
 import validator.UserValidator;
 import model.ValidationResult;
 
