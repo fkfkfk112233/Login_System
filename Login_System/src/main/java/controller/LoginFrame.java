@@ -18,6 +18,7 @@ import model.User;
 import service.AuthService;
 import service.impl.AuthServiceImpl;
 import ui.frame.BaseFrame;
+import ui.panel.LoginPanel;
 
 public class LoginFrame extends BaseFrame {
 
@@ -60,6 +61,9 @@ public class LoginFrame extends BaseFrame {
 	 * Create the frame.
 	 */
 	public LoginFrame() {
+		
+		//add(new LoginPanel());
+		
 		setTitle("登入系統");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 350, 420);
