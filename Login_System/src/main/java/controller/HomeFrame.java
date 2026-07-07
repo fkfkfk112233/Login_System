@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 import model.User;
+import ui.frame.BaseFrame;
 import util.Session;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
