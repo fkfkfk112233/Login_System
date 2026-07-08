@@ -62,56 +62,56 @@ public class LoginFrame extends BaseFrame {
 	 */
 	public LoginFrame() {
 		
-		//add(new LoginPanel());
+		add(new LoginPanel());
 		
-		setTitle("登入系統");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 350, 420);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(1, 1, 1, 1));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel title = new JLabel("歡迎回來");
-		title.setFont(new Font("新細明體", Font.BOLD, 20));
-		title.setBounds(120, 10, 90, 50);
-		contentPane.add(title);
-		
-		lbAcc = new JLabel("帳號：");
-		lbAcc.setFont(new Font("新細明體", Font.BOLD, 15));
-		lbAcc.setBounds(34, 69, 46, 30);
-		contentPane.add(lbAcc);
-		
-		lbPwd = new JLabel("密碼：");
-		lbPwd.setFont(new Font("新細明體", Font.BOLD, 15));
-		lbPwd.setBounds(34, 112, 46, 30);
-		contentPane.add(lbPwd);
-		
-		msg = new JLabel("");
-		msg.setFont(new Font("新細明體", Font.BOLD, 12));
-		msg.setBounds(34, 230, 246, 30);
-		msg.setForeground(Color.RED);
-		contentPane.add(msg);
-	
-		
-		txtAccount = new JTextField("");		
-		txtAccount.setBounds(90, 70, 190, 30);
-		contentPane.add(txtAccount);
-		txtAccount.setColumns(10);
-		
-		txtPassword = new JPasswordField("");
-		txtPassword.setBounds(90, 112, 190, 30);
-		contentPane.add(txtPassword);
-		txtPassword.setColumns(10);
-		
-		btnLogin = new JButton("登入");
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				login();
-			}
-		});
-		btnLogin.setBounds(193, 170, 87, 23);
-		contentPane.add(btnLogin);
+//		setTitle("登入系統");
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setBounds(100, 100, 350, 420);
+//		contentPane = new JPanel();
+//		contentPane.setBorder(new EmptyBorder(1, 1, 1, 1));
+//		setContentPane(contentPane);
+//		contentPane.setLayout(null);
+//		
+//		JLabel title = new JLabel("歡迎回來");
+//		title.setFont(new Font("新細明體", Font.BOLD, 20));
+//		title.setBounds(120, 10, 90, 50);
+//		contentPane.add(title);
+//		
+//		lbAcc = new JLabel("帳號：");
+//		lbAcc.setFont(new Font("新細明體", Font.BOLD, 15));
+//		lbAcc.setBounds(34, 69, 46, 30);
+//		contentPane.add(lbAcc);
+//		
+//		lbPwd = new JLabel("密碼：");
+//		lbPwd.setFont(new Font("新細明體", Font.BOLD, 15));
+//		lbPwd.setBounds(34, 112, 46, 30);
+//		contentPane.add(lbPwd);
+//		
+//		msg = new JLabel("");
+//		msg.setFont(new Font("新細明體", Font.BOLD, 12));
+//		msg.setBounds(34, 230, 246, 30);
+//		msg.setForeground(Color.RED);
+//		contentPane.add(msg);
+//	
+//		
+//		txtAccount = new JTextField("");		
+//		txtAccount.setBounds(90, 70, 190, 30);
+//		contentPane.add(txtAccount);
+//		txtAccount.setColumns(10);
+//		
+//		txtPassword = new JPasswordField("");
+//		txtPassword.setBounds(90, 112, 190, 30);
+//		contentPane.add(txtPassword);
+//		txtPassword.setColumns(10);
+//		
+//		btnLogin = new JButton("登入");
+//		btnLogin.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				login();
+//			}
+//		});
+//		btnLogin.setBounds(193, 170, 87, 23);
+//		contentPane.add(btnLogin);
 		
 	}
 	/***************************Method****************************/
