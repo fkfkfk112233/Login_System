@@ -4,11 +4,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 
+import model.User;
+import service.AuthService;
+import service.impl.AuthServiceImpl;
+import ui.listener.LoginPanelListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import controller.RegisterFrame;
 
 public class LoginPanel extends JPanel{
 	
@@ -28,6 +35,10 @@ public class LoginPanel extends JPanel{
 	private JButton btnRegister;
 	
 	private JLabel msg;
+	
+	private AuthService authService =new AuthServiceImpl();
+	
+	private LoginPanelListener listener;
 	
 	/************ Constructor ************/
 	
@@ -96,7 +107,7 @@ public class LoginPanel extends JPanel{
 		btnLogin.setBounds(193, 170, 87, 23);
 		add(btnLogin);
 		
-		btnRegister.setBounds(193, 170, 87, 23);
+		btnRegister.setBounds(100, 170, 87, 23);
 		add(btnRegister);
 		
 		msg.setFont(new Font("新細明體", Font.BOLD, 12));
@@ -106,14 +117,73 @@ public class LoginPanel extends JPanel{
 		
 	}
 	
+	private void setListener(LoginPanelListener listener) {
+		
+		this.listener = listener;
+		
+	}
+	
 	private void registerEvents() {
 		
-		btnLogin.addActionListener(e -> login());
+		btnRegister.addActionListener(e -> openRegister());
 			
 		
 	}
 	
 	private void login() {
-		System.out.println("Login");
+		
+		if(!validateInput()) {
+			
+			return;
+			
+		}
+		
+		String account = txtAccount.getText().trim();
+		
+		String password = String.valueOf(txtPassword.getPassword());
+		
+		User user = authService.login(account, password);
+		
+		if(listener != null) {
+			
+			listener.onLoginSuccess();
+			//msg.setText("歡迎" + user.getName());
+			
+		}else {
+			
+			msg.setText("帳號或密碼錯誤");
+		}
+	}
+	
+	private void openRegister() {
+		
+		listener.onRegisterClick();
+		//new RegisterFrame().setVisible(true);
+		
+	}
+	
+	/****************** Method **********************/
+	
+	private boolean validateInput() {
+		
+		if(txtAccount.getText().trim().isEmpty()) {
+			
+			msg.setText("請輸入帳號");
+			
+			return false;
+			
+		}
+		
+		if(txtPassword.getPassword().length == 0) {
+			
+			msg.setText("請輸入密碼");
+			
+			return false;
+			
+		}
+		
+		
+		return true;
+		
 	}
 }
